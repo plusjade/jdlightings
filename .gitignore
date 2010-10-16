@@ -1,4 +1,11 @@
-.bundle
 db/*.sqlite3
 log/*.log
 tmp/**/*
+
+config/database.yml
+config/sendgrid.yml
+config/deploy.rb
+public/system/*
+
+Thumbs.db
+.DS_Store

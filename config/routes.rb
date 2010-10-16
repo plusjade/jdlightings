@@ -1,4 +1,33 @@
 Jdlightings::Application.routes.draw do
+  
+  
+  
+  scope "/auto" do
+    match 'about'             => 'pages#about'
+    match 'conditions'        => 'pages#conditions'
+    match 'dealer_inquiry'    => 'pages#dealer_inquiry'
+    match 'contact'           => 'pages#contact'
+    match 'support'           => 'pages#support'
+    match 'faq'               => 'pages#faq' 
+    match 'site_map'          => 'pages#site_map'
+    match 'privacy_and_terms' => 'pages#privacy_and_terms'
+  end
+
+  scope "/auto" do
+    match 'about'             => 'pages#about'
+    match 'conditions'        => 'pages#conditions'
+    match 'dealer_inquiry'    => 'pages#dealer_inquiry'
+    match 'contact'           => 'pages#contact'
+    match 'support'           => 'pages#support'
+    match 'faq'               => 'pages#faq' 
+    match 'site_map'          => 'pages#site_map'
+    match 'privacy_and_terms' => 'pages#privacy_and_terms'
+  end
+    
+  #match ':site' => 'pages#about', :constraints => { :site => /[A-Z]\d{5}/ }
+  
+  #get "pages/about"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
