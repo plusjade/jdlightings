@@ -10,13 +10,46 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101017002817) do
+ActiveRecord::Schema.define(:version => 20101017004223) do
 
   create_table "categories", :force => true do |t|
     t.string   "site"
     t.string   "name"
     t.string   "url_slug"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_attributes", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "item_group_attribute_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_group_attributes", :force => true do |t|
+    t.integer  "item_group_id"
+    t.string   "name"
+    t.text     "default_value"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_groups", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.integer  "item_group_id"
+    t.string   "sku"
+    t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
