@@ -24,17 +24,17 @@ Generated Sections:
 ==================================
 
 categories
--- id | name | description
+-- id | site | name | url_slug | description
   has_many :products
 
 products
--- id | category_id | name | desc
+-- id | category_id | name | url_slug | description
   belongs_to :category
   has_many :item_groups
   
   
 item_groups
--- id | product_id | name | desc
+-- id | product_id | name | description
   belongs_to :product
   has_many :item_group_attributes
 
@@ -69,9 +69,19 @@ items_attributes
 
 =============================================
 
+
+      Routing Schema for Products:
+=============================================
+/auto/:category
+  category where site = :site and url_slug = :category
+/auto/:category/:product
+  category where site = :site and url_slug = :category
+  product where categry = category and url_slug = :product
   
   
   
+=============================================
+
   
   LED (category)
     Euro Error-Free LED Bulbs (product page)
