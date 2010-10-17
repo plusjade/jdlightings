@@ -1,7 +1,7 @@
 class CreateItemGroupAttributes < ActiveRecord::Migration
   def self.up
-    create_table :item_group_attributes do |t|
-      t.references  :item_group
+    create_table :group_specs do |t|
+      t.references  :group
       t.string      :name
       t.text        :default_value
       t.integer     :position 
@@ -10,6 +10,6 @@ class CreateItemGroupAttributes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :item_group_attributes
+    drop_table :group_specs
   end
 end

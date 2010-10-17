@@ -1,14 +1,14 @@
 class CreateItemAttributes < ActiveRecord::Migration
   def self.up
-    create_table :item_attributes do |t|
+    create_table :specs do |t|
       t.references  :item
-      t.references  :item_group_attribute
+      t.references  :group_spec
       t.string      :value
       t.timestamps
     end
   end
 
   def self.down
-    drop_table :item_attributes
+    drop_table :specs
   end
 end

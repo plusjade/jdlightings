@@ -1,3 +1,105 @@
-<h1>Pages#about</h1>
 <h1>The site is: <%= @site %></h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+
+<h5>Categories</h5>
+<ul>
+<% @categories.each do |cat| %>
+  <li><%= cat.name %></li>
+<% end %>
+</ul>
+
+<h5>Products</h5>
+<ul>
+<% @products.each do |product| %>
+  <li>
+    <b><%= product.name %></b><br/>
+    Product Groups
+    <ul>
+      <% product.groups.each do |group| %>
+        <li>
+          <%= group.name %><br/>
+          Specs: 
+          <% group.group_specs.each do |gspec| %>
+            <%= gspec.name %>,
+          <% end %>
+            
+          <h5>Items</h5>
+          <ul>
+          <% group.items.each do |item| %>
+            <% specs = item.specs_for_display %>
+            <li>
+              <%= item.sku %><br/>
+              <% group.group_specs.each do |spec| %>
+                <%= specs[spec.id] %>,
+              <% end %>
+            </li>
+          <% end %>
+          </ul>
+        
+        
+        </li>
+      <% end %>      
+    </ul>
+  </li>
+<% end %>
+</ul>
+
+
+
+
+
+
+
+<% @products.each do |p| %>
+  <h2><%= p.name %></h2>
+  <p>
+    <%= p.description %>
+  </p>
+  
+  <% p.groups.each do |group| %>
+    <h5><%= group.name %></h5>
+    <blockquote>
+      <%= group.description %>
+    </blockquote>
+    
+    
+    <table>
+      <tr>
+        <th>SKU</th>
+      <% group.group_specs.each do |a| %>
+        <th><%= a.name %></th>
+      <% end %>
+        <th>price</th>
+      </tr>
+    
+      
+      <% group.items.each do |item| %>
+        <% specs = item.specs_for_display %>
+        <tr>
+          <td><%= item.sku %></td>
+        <% group.group_specs.each do |spec| %>
+          <td><%= specs[spec.id] %></td>
+        <% end %>
+          <td><%= item.price %></td>
+        </tr>
+      <% end %>    
+    
+    </table>
+    
+    
+  <% end %>
+<% end %>
+
+
+
+<style type="text/css">
+  table {
+    width:50%;
+  }
+  table th {
+    background:#eee;
+  }
+  table td, table th{
+    padding:4px;
+    border:1px solid #ccc;
+  }
+</style>

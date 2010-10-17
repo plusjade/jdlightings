@@ -21,16 +21,16 @@ ActiveRecord::Schema.define(:version => 20101017004223) do
     t.datetime "updated_at"
   end
 
-  create_table "item_attributes", :force => true do |t|
-    t.integer  "item_id"
-    t.integer  "item_group_attribute_id"
-    t.string   "value"
+  create_table "groups", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "item_group_attributes", :force => true do |t|
-    t.integer  "item_group_id"
+  
+  create_table "group_specs", :force => true do |t|
+    t.integer  "group_id"
     t.string   "name"
     t.text     "default_value"
     t.integer  "position"
@@ -38,22 +38,22 @@ ActiveRecord::Schema.define(:version => 20101017004223) do
     t.datetime "updated_at"
   end
 
-  create_table "item_groups", :force => true do |t|
-    t.integer  "product_id"
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "items", :force => true do |t|
-    t.integer  "item_group_id"
+    t.integer  "group_id"
     t.string   "sku"
     t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "specs", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "group_spec_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+  
   create_table "products", :force => true do |t|
     t.integer  "category_id"
     t.string   "name"

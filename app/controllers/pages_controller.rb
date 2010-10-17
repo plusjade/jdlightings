@@ -3,6 +3,10 @@ class PagesController < ApplicationController
   before_filter :get_site
    
   def about
+    @categories = Category.all
+    
+    @products = Product.all
+    
   end
 
   def conditions
