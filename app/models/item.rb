@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :group
-  has_many :specs
+  has_many :specs, :dependent => :destroy
   
   
   def specs_for_display
@@ -8,7 +8,8 @@ class Item < ActiveRecord::Base
     self.specs.each do |spec|
       h[spec.group_spec_id] = spec.value
     end
-    h  
+    h
+    #return self.specs.dup.map!{ |s| {s.group_spec_id => s.value} }  
   end
   
   

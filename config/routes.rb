@@ -1,6 +1,17 @@
 Jdlightings::Application.routes.draw do
   
+  match 'admin' => "admin#index"
+  resources :categories
+  resources :products do
+    resources :groups
+  end
   
+  resources :groups do
+    member do
+      get 'spec/:spec_id', :action => "spec"
+    end    
+    resources :items
+  end
   
   scope "/auto" do
     match 'about'             => 'pages#about'

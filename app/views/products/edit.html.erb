@@ -1,6 +1,219 @@
-<h1>Editing product</h1>
-
-<%= render 'form' %>
-
+<h1>Editing product line </h1>
 <%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'Back', products_path %> |
+<a href="#" id="product_edit">edit</a>
+<%= render 'form' %>
+<br/><br/>
+
+<h2>Product Line Groupings</h2>
+<a href="#" id="new_group_link">New Group</a>
+<%= form_for @product.groups.new, :url => product_groups_path(@product), :html => {:style => "display:none"} do |f| %>
+  <fieldset>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </fieldset>  
+  <fieldset>
+    <%= f.label :description %><br/>
+    <%= f.text_area :description %>
+  </fieldset>
+  <%= f.submit %>
+<% end %>
+
+<p>
+  Groups hold the specifications that each item member
+  will adhere to:
+</p>
+
+
+<blockquote>
+<% @product.groups.each do |group| %>
+  <h2>
+    <%= group.name %> 
+    <a href="#" class="toggle_groups">show/hide</a>
+  </h2>
+
+  <div class="group_single">
+    <%= form_for group, :url => product_group_path(@product, group), :html => {:style => "isplay:none"} do |f| %>
+      <fieldset>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </fieldset>  
+      <fieldset>
+        <%= f.label :description %><br/>
+        <%= f.text_area :description %>
+      </fieldset>
+      <fieldset>
+        <label>Specifications:</label>
+        <br/>* Deleting a specification will delete all spec data for all items as well.
+        <br/><a href="#" class="new_group_spec">New Spec</a>
+        
+        <ul class="sortable">
+          <% group.group_specs.each do |spec| %>
+            <li>
+              <input type="text" name="group_specs[<%= spec.id %>]" value="<%= spec.name %>" />
+               | <%= link_to "[x]", group_path(group) + "/spec/" + spec.id.to_s %>
+            </li>
+          <% end %>
+        </ul>
+      </fieldset>  
+
+      <%= f.submit %>
+    <% end %>
+
+    <h3>Items in this Group</h3>
+    <a href="">New Item</a>
+      <table>
+        <!-- TABLE HEADER BASED ON GROUP SPECS -->
+        <tr>
+          <th><input type="text" name="item[sku]" /></th>
+        <% group.group_specs.each do |gspec| %>
+          <th><input type="text" name="specs[<%= gspec.id %>]" value="<%= gspec.default_value %>" /></th>
+        <% end %>
+          <th><input type="text" name="item[price]" /></th>
+          <th><%= link_to "add", group_items_path(group), :class => "item_new"%></th>
+        </tr>
+        <tr>
+          <th>SKU</th>
+        <% group.group_specs.each do |gspec| %>
+          <th><%= gspec.name %></th>
+        <% end %>
+          <th>price</th>
+          <th>save</th>
+        </tr>
+        
+      <!-- Actual Items List -->  
+      <% group.items.each do |item| %>
+        <% specs = item.specs_for_display %>
+        <tr>
+          <td><input type="text" name="item[sku]" value="<%= item.sku %>" /> </td>
+        <% group.group_specs.each do |gspec| %>
+          <td><input type="text" name="specs[<%= gspec.id %>]" value="<%= specs[gspec.id] %>" /></td>
+        <% end %>
+          <td><input type="text" name="item[price]" value="<%= item.price %>" /></td>
+          <td><%= link_to "save", group_item_path(group, item), :class => "item_save"%></td>
+        </tr>
+      <% end %>
+    </table>
+    
+  </div>
+<% end %>
+</blockquote>
+
+<p>end</p>
+
+
+<script>
+$(function(){
+  //$(".group_single").hide();
+  
+  
+  $(".sortable").sortable({items: 'li', axis: 'y'});
+  
+  $(".new_group_spec").click(function(){
+    var li = '<li><input type="text" name="new_specs[]" value="hello!" /> | <a href="#">[x]</a></li>';
+    $(this).next(".sortable").append(li);
+    return false;
+  })
+
+  $(".sortable li a").live("click", function(){
+    if(confirm("This will delete a lot of jack!?")){
+      $(this).parent().remove();
+    } else {
+      return false;
+    }
+  })
+
+  $(".item_new, .item_save").live("click", function(){
+    var url     = this.href;
+    var type    = $(this).hasClass("item_new") ? "POST" : "PUT" ;
+    var $form   = $(this).parent().parent();
+    var serial  = $form.find("input").fieldSerialize()
+
+    $.ajax({
+      type: type,
+      url: url,
+      data: serial,
+      success: function(rsp){
+        console.log(rsp)
+      }
+    })
+     
+    return false;
+  })
+      
+    
+  $("#new_group_link").click(function(){
+    $(this).next('form').toggle();
+    return false;
+  })
+  $(".toggle_groups").click(function(){
+    $(this).parent().next('div').toggle();
+    return false;
+  })
+  
+  $("#product_edit").click(function(){
+    $(this).next('form').toggle();
+    return false;
+  })
+  
+  
+  
+})
+</script>
+
+
+<style type="text/css">
+  #sortable {
+    width:400px;
+  }
+  #sortable li {
+    display:block;
+    border:1px solid #ccc;
+    padding:3px;
+    margin-bottom:5px;
+  }
+  h1,h2,h3,h4,h5,h6 {
+    margin:0;
+    padding:0;
+    margin-bottom:10px;
+  }
+  h1 {font-size:20px;}
+  h2 {font-size:18px;}
+  h3 {font-size:16px;}
+  h4 {font-size:14px;}
+  h5 {font-size:12px;}
+  h6 {font-size:10px;}
+  form {margin-bottom:10px;}
+  fieldset {
+    border:0;
+    margin-bottom:10;
+  }
+  textarea {
+    width:500px;
+    height:90px;
+  }
+  p {
+    margin:0;
+    padding:0;
+    margin-bottom:10px;
+  }
+  table {
+    width:50%;
+    margin-bottom:10px;
+  }
+  table th {
+    background:#eee;
+  }
+  table td, table th{
+    padding:4px;
+    border:1px solid #ccc;
+  }
+  
+  
+  .group_single {
+    padding:10px;
+    margin-left:10px;
+    border:1px dashed #ccc;
+    margin-bottom:10px;
+  }
+</style>
