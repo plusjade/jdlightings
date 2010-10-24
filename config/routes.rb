@@ -1,40 +1,35 @@
 Jdlightings::Application.routes.draw do
-  
-  match 'admin' => "admin#index"
+
+  # two website sections with route_helpers
+  constraints(:site => /(auto)|(hydro)/) do
+    scope ":site", :controller => "pages", :name_prefix => "page" do
+      match "()", :action => "index", :as => "home"
+      get 'about'
+      get 'conditions'        
+      get 'dealer_inquiry'    
+      get 'contact'           
+      get 'support'           
+      get 'faq'               
+      get 'site_map'          
+      get 'privacy_and_terms'
+    end
+  end  
+
+  # routes for product engine
   resources :categories
   resources :products do
     resources :groups
   end
-  
   resources :groups do
     member do
       get 'spec/:spec_id', :action => "spec"
     end    
     resources :items
   end
-  
-  scope "/auto" do
-    match 'about'             => 'pages#about'
-    match 'conditions'        => 'pages#conditions'
-    match 'dealer_inquiry'    => 'pages#dealer_inquiry'
-    match 'contact'           => 'pages#contact'
-    match 'support'           => 'pages#support'
-    match 'faq'               => 'pages#faq' 
-    match 'site_map'          => 'pages#site_map'
-    match 'privacy_and_terms' => 'pages#privacy_and_terms'
-  end
-
-  scope "/auto" do
-    match 'about'             => 'pages#about'
-    match 'conditions'        => 'pages#conditions'
-    match 'dealer_inquiry'    => 'pages#dealer_inquiry'
-    match 'contact'           => 'pages#contact'
-    match 'support'           => 'pages#support'
-    match 'faq'               => 'pages#faq' 
-    match 'site_map'          => 'pages#site_map'
-    match 'privacy_and_terms' => 'pages#privacy_and_terms'
-  end
     
+  # admin
+  match 'admin' => "admin#index"
+      
   #match ':site' => 'pages#about', :constraints => { :site => /[A-Z]\d{5}/ }
   
   #get "pages/about"
