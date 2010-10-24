@@ -1,19 +1,87 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>JD Lightings</title>
-  <%= stylesheet_link_tag %>
-  <%= javascript_include_tag "jquery", "jquery.ui", "form" %>
-  <script>
-  $(function(){
-    
-  })
-  </script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>JDLightings</title>
+	<%= stylesheet_link_tag "all" %>
+	<%= javascript_include_tag "claear-input" %>
+	<!--[if lt IE 8]><%= stylesheet_link_tag "ie" %><![endif]-->
 </head>
-
-  <body>
-    <%= yield %>
-  </body>
-
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<strong class="logo"><%= link_to "", page_home_path %></strong>
+			<div class="nav-holder">
+				<ul id="nav">
+					<li><a href="#">PRODUCT</a></li>
+					<li><a href="#">COMPANY</a></li>
+					<li><a href="#">CONTACT</a></li>
+					<li><a href="#">MEDIA</a></li>
+				</ul>
+				<div class="menu-holder">
+					<ul class="menu">
+						<li><a href="#">HID</a></li>
+						<li><a href="#">LED</a></li>
+						<li><a href="#">Halogen</a></li>
+						<li><a href="#">Parts</a></li>
+					</ul>
+				</div>
+			</div>
+			<form action="#" class="search-form">
+				<fieldset>
+					<div class="text-holder">
+						<input type="text" class="text" value="Search" />
+					</div>
+					<input type="image" src="/images/btn-search.gif" alt="search" value="search" class="submit" />
+				</fieldset>
+			</form>
+		</div>
+		<div id="content">
+			<div class="container">
+				<%= yield %>
+			</div>
+			<div class="section">
+				<ul class="events">
+					<li>
+						<h2>07/24/2010 JD Lightings at SEMA : </h2>
+						<p>Well known for it’s high quality HID products in the US market, the booth at SEMA...</p>
+						<a href="#" class="more">read more</a>
+					</li>
+					<li>
+						<h2>03/13/2010 JD Lightings DEBUT! : </h2>
+						<p>In 2009, HID Global challenged the status quo to produce encouraging growth in the EMEA region. What can we expect of 2010?</p>
+						<a href="#" class="more read-more">read more</a>
+					</li>
+				</ul>
+				<div class="gallery">
+					<a href="#" class="prev">prev</a>
+					<div class="mask">
+						<img src="/images/img07.jpg" alt="" width="641" height="150" />
+					</div>
+					<a href="#" class="next">next</a>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<ul class="nav">
+				<li><a href="#">Login</a></li>
+				<li><a href="#">Sign Up</a></li>
+				<li><a href="#">FAQs</a></li>
+			</ul>
+			<ul class="social">
+				<li><a class="facebook" href="#">facebook</a></li>
+				<li><a class="twitter" href="#">twitter</a></li>
+				<li><a class="rss" href="#">rss</a></li>
+				<li><a class="youtube" href="#">youtube</a></li>
+			</ul>
+			<div class="box">
+				<ul>
+					<li><a href="#">Site Map</a></li>
+					<li><a href="#">Privacy / Terms of use</a></li>
+				</ul>
+				<p>Copyright &copy; 2010 JD Lightings Inc.  All rights reserved</p>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

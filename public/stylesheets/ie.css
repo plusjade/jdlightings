@@ -1,0 +1,8 @@
+* html .logo {
+	background:-9999px -9999px;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='images/logo.png', sizingmethod='crop');
+}
+* html .block h2 {
+	background:-9999px -9999px;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='images/bg-title.png', sizingmethod='scale');
+}

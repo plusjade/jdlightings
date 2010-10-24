@@ -1,7 +1,11 @@
 class PagesController < ApplicationController
   
-  before_filter :get_site
-   
+  
+  def index
+    
+  end 
+  
+  
   def about
     @categories = Category.all
     
