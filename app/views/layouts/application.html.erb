@@ -10,6 +10,29 @@
 	  div.menu-holder ul {
 	    display:none;
 	  }
+	  #company-layout{
+	    height:500px;
+	    background: url('/images/about.jpg') no-repeat top right;
+	  }
+	  #contact-layout{
+	    height:500px;
+	    background:#000 url('/images/contact.jpg') no-repeat top left;
+	  }
+	  #media-layout{
+	    height:500px;
+	    background:#000 url('/images/media.jpg') no-repeat top -80px;
+	  }
+	  #aside-background{
+      width:290px;
+      height:500px;
+	    background: url('/images/aside-bg.png') repeat-x;	    
+	  }
+	  #main-background{
+	    float:right;
+      width:665px;
+      height:500px;
+	    background: url('/images/aside-bg.png') repeat-x;	    
+	  }
 	</style>
 	<script>
 	  $(function(){
@@ -71,10 +94,24 @@
 			</form>
 		</div>
 		<div id="content">
-			<div class="container">
+			<div class="container" style="height:495px; overflow:hidden">
 				<%= yield %>
 			</div>
-			<div class="section">
+			
+
+			<div class="main-container">
+				<div class="aside">
+            <%= yield :aside %>
+				</div>
+				<div class="content-block">
+					<div class="content-holder">
+					  <%= yield :content %>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="section" style="clear:both">
 				<ul class="events">
 					<li>
 						<h2>07/24/2010 JD Lightings at SEMA : </h2>
