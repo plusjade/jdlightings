@@ -4,8 +4,31 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>JDLightings</title>
 	<%= stylesheet_link_tag "all" %>
-	<%= javascript_include_tag "claear-input" %>
+	<%= javascript_include_tag "jquery", "claear-input" %>
 	<!--[if lt IE 8]><%= stylesheet_link_tag "ie" %><![endif]-->
+	<style type="text/css">
+	  div.menu-holder ul {
+	    display:none;
+	  }
+	</style>
+	<script>
+	  $(function(){
+	    /*
+	    $("#nav").find("a").click(function(){
+	      console.log(this.hash.substring(1));
+	      $("div.menu-holder").find("ul").hide()
+	      $("div.menu-holder").find("ul."+this.hash.substring(1)).toggle()
+	    }) */
+      $("#nav").find("a").hover(function(){
+        $("div.menu-holder").find("ul").hide()
+        $("div.menu-holder").find("ul."+this.hash.substring(1)).toggle()
+        $("#nav").find("a").removeClass("active")
+        $(this).addClass("active")
+      },function(){
+      
+      })
+	  })	  
+	</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -13,18 +36,29 @@
 			<strong class="logo"><%= link_to "", page_home_path %></strong>
 			<div class="nav-holder">
 				<ul id="nav">
-					<li><a href="#">PRODUCT</a></li>
-					<li><a href="#">COMPANY</a></li>
-					<li><a href="#">CONTACT</a></li>
-					<li><a href="#">MEDIA</a></li>
+					<li><a href="#products">PRODUCT</a></li>
+					<li><a href="#company">COMPANY</a></li>
+					<li><%= link_to "CONTACT", page_contact_path %></li>
+					<li><a href="#media">MEDIA</a></li>
 				</ul>
 				<div class="menu-holder">
-					<ul class="menu">
+					<ul class="menu products">
 						<li><a href="#">HID</a></li>
 						<li><a href="#">LED</a></li>
 						<li><a href="#">Halogen</a></li>
 						<li><a href="#">Parts</a></li>
 					</ul>
+					<ul class="menu company">
+						<li><%= link_to "ABOUT", page_about_path %></li>
+						<li><%= link_to "CONDITIONS", page_conditions_path %></li>
+						<li><%= link_to "DEALER INQUIRY", page_dealer_inquiry_path %></li>
+					</ul>
+					<ul class="menu media">
+						<li><%= link_to "NEWS", page_news_path %></li>
+						<li><%= link_to "GALLERY", "#" %></li>
+						<li><%= link_to "SUPPORT", page_support_path %></li>
+						<li><%= link_to "SUBMIT YOUR VEHICLE", "#" %></li>
+					</ul>										
 				</div>
 			</div>
 			<form action="#" class="search-form">
@@ -64,9 +98,9 @@
 		</div>
 		<div id="footer">
 			<ul class="nav">
-				<li><a href="#">Login</a></li>
-				<li><a href="#">Sign Up</a></li>
-				<li><a href="#">FAQs</a></li>
+				<li><%= link_to "Login", "#" %></li>
+				<li><%= link_to "Sign Up", "#" %></li>
+				<li><%= link_to "FAQS", page_faq_path %></li>
 			</ul>
 			<ul class="social">
 				<li><a class="facebook" href="#">facebook</a></li>
@@ -76,8 +110,8 @@
 			</ul>
 			<div class="box">
 				<ul>
-					<li><a href="#">Site Map</a></li>
-					<li><a href="#">Privacy / Terms of use</a></li>
+					<li><%= link_to "Site Map", "#" %></li>
+					<li><%= link_to "Privacy / Terms of use", page_privacy_and_terms_path %></li>
 				</ul>
 				<p>Copyright &copy; 2010 JD Lightings Inc.  All rights reserved</p>
 			</div>

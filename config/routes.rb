@@ -9,6 +9,7 @@ Jdlightings::Application.routes.draw do
       get 'dealer_inquiry'    
       get 'contact'           
       get 'support'           
+      get 'news'               
       get 'faq'               
       get 'site_map'          
       get 'privacy_and_terms'
