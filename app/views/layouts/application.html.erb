@@ -4,84 +4,51 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>JDLightings</title>
 	<%= stylesheet_link_tag "all" %>
-	<%= javascript_include_tag "jquery", "claear-input" %>
+	<%= javascript_include_tag "jquery", "claear-input", "sammy/sammy" %>
 	<!--[if lt IE 8]><%= stylesheet_link_tag "ie" %><![endif]-->
-	<style type="text/css">
-	  div.menu-holder ul {
-	    display:none;
-	  }
-	  #company-layout{
-	    height:500px;
-	    background: url('/images/about.jpg') no-repeat top right;
-	  }
-	  #contact-layout{
-	    height:500px;
-	    background:#000 url('/images/contact.jpg') no-repeat top left;
-	  }
-	  #media-layout{
-	    height:500px;
-	    background:#000 url('/images/media.jpg') no-repeat top -80px;
-	  }
-	  #aside-background{
-      width:290px;
-      height:500px;
-	    background: url('/images/aside-bg.png') repeat-x;	    
-	  }
-	  #main-background{
-	    float:right;
-      width:665px;
-      height:500px;
-	    background: url('/images/aside-bg.png') repeat-x;	    
-	  }
-	</style>
-	<script>
-	  $(function(){
-	    /*
-	    $("#nav").find("a").click(function(){
-	      console.log(this.hash.substring(1));
-	      $("div.menu-holder").find("ul").hide()
-	      $("div.menu-holder").find("ul."+this.hash.substring(1)).toggle()
-	    }) */
-      $("#nav").find("a").hover(function(){
-        $("div.menu-holder").find("ul").hide()
-        $("div.menu-holder").find("ul."+this.hash.substring(1)).toggle()
-        $("#nav").find("a").removeClass("active")
-        $(this).addClass("active")
-      },function(){
-      
-      })
-	  })	  
-	</script>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
 			<strong class="logo"><%= link_to "", page_home_path %></strong>
 			<div class="nav-holder">
+				
+				
 				<ul id="nav">
-					<li><a href="#products">PRODUCT</a></li>
-					<li><a href="#company">COMPANY</a></li>
-					<li><%= link_to "CONTACT", page_contact_path %></li>
-					<li><a href="#media">MEDIA</a></li>
+        <% ['product','company','contact','media'].each do |link| %>
+          <% url = (link=="contact") ? page_contact_path : "#" %>
+          <li class="<%= link %>">
+          <% if @parent_nav == link %>
+            <%= link_to link.upcase, url, :class => "active", :rel => link %>
+          <% else %>
+            <%= link_to link.upcase, url, :rel => link %>
+          <% end %>
+          </li>
+        <% end %>
 				</ul>
+				
+				
 				<div class="menu-holder">
-					<ul class="menu products">
+					<ul class="menu product">
 						<li><a href="#">HID</a></li>
 						<li><a href="#">LED</a></li>
 						<li><a href="#">Halogen</a></li>
 						<li><a href="#">Parts</a></li>
 					</ul>
+					
 					<ul class="menu company">
-						<li><%= link_to "ABOUT", page_about_path %></li>
-						<li><%= link_to "CONDITIONS", page_conditions_path %></li>
-						<li><%= link_to "DEALER INQUIRY", page_dealer_inquiry_path %></li>
+						<li class="about"><%= link_to "ABOUT", page_about_path %></li>
+						<li class="conditions"><%= link_to "CONDITIONS", page_conditions_path %></li>
+						<li class="dealer_inquiry"><%= link_to "DEALER INQUIRY", page_dealer_inquiry_path %></li>
 					</ul>
+
 					<ul class="menu media">
 						<li><%= link_to "NEWS", page_news_path %></li>
 						<li><%= link_to "GALLERY", "#" %></li>
 						<li><%= link_to "SUPPORT", page_support_path %></li>
 						<li><%= link_to "SUBMIT YOUR VEHICLE", "#" %></li>
-					</ul>										
+					</ul>	
+														
 				</div>
 			</div>
 			<form action="#" class="search-form">
@@ -94,22 +61,9 @@
 			</form>
 		</div>
 		<div id="content">
-			<div class="container" style="height:495px; overflow:hidden">
-				<%= yield %>
-			</div>
-			
-
-			<div class="main-container">
-				<div class="aside">
-            <%= yield :aside %>
-				</div>
-				<div class="content-block">
-					<div class="content-holder">
-					  <%= yield :content %>
-					</div>
-				</div>
-			</div>
-
+		  <div id="sammify">
+        <%= yield %>
+      </div>
 			
 			<div class="section" style="clear:both">
 				<ul class="events">
@@ -154,5 +108,111 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	  var site = '/<%= params[:site] %>';
+	  var parentNav = '<%= @parent_nav %>';
+	  
+    var app = $.sammy(function() {
+      this.debug = true;
+      
+      this.before(function(){
+        var loading = '<div class="loading"></div>';
+        $('#sammify').html(loading)        
+      })
+      
+      this.get('#/', function() {
+        $('#sammify').load(site);
+        parentNav = 'hi';
+      })
+      this.get('#/about', function() {
+        $('#sammify').load('/auto/about');
+        parentNav = "company";
+      })
+      this.get('#/conditions', function() {
+        $('#sammify').load(site+'/conditions');
+        parentNav = "company";
+      })
+      this.get('#/dealer_inquiry', function() {
+        $('#sammify').load(site+'/dealer_inquiry');
+        parentNav = "company";
+      })  
+      this.get('#/contact', function() {
+        $('#sammify').load(site+'/contact');
+        parentNav = "contact";
+      })
+      this.get('#/news', function() {
+        $('#sammify').load(site+'/news')
+        parentNav = "media";
+      })  
+      this.get('#/support', function() {
+        $('#sammify').load(site+'/support');
+        parentNav = "media";
+      })
+      this.get('#/faq', function() {
+        $('#sammify').load(site+'/faq');
+        parentNav = "";
+      })
+      this.get('#/privacy_and_terms', function() {
+        $('#sammify').load(site+'/privacy_and_terms');
+        parentNav = "";
+      })
+      
+      
+      this.after(function(){
+        /* add UI navigation highlighting */
+        if (parentNav !== ''){
+          $("div.menu-holder").find("ul").hide();
+          $("#nav").find("li."+parentNav+" a").hover();
+        }
+      })
+          
+          
+          
+      this.notFound = function(){
+        return false;
+      }
+    })
+    
+    $(function() {
+      app.run();
+      
+      
+      // sammify real links
+      $("body").find("a").click(function(){
+        // no sammy
+        if($(this).attr('href') === "#") return false;
+        
+        var asHash = $(this).attr('href').substring(1);
+        // remove our assumed :site param (this might break in ie)
+        asHash = (asHash.indexOf('/')=== -1)
+          ? "#/"
+          : "#" + asHash.slice(asHash.indexOf('/'));
+        
+        // if this is a non-root path we should reload and sammify
+        var url = window.location.pathname.substring(1).split('/');
+        if (url.length === 1){
+          // send a valid hash to sammy, else let the url do its thang
+          if (asHash !== '#'){
+            window.location.hash = asHash;
+            return false;
+          }            
+        } else {
+          window.location = site + "/" + asHash
+          return false;
+        }
+      })
+      
+      $("#nav").find("a").hover(function(){
+        $("div.menu-holder").find("ul").hide()
+        var list = $(this).attr('rel');
+        $("div.menu-holder").find("ul."+list).toggle()
+        $("#nav").find("a").removeClass("active")
+        $(this).addClass("active")
+      })
+      $("#nav").find("li."+parentNav+" a").hover();
+    })
+    
+	</script>	
 </body>
 </html>
