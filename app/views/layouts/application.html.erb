@@ -10,18 +10,22 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<strong class="logo"><%= link_to "", page_home_path %></strong>
+			<strong class="logo"><%= link_to "", page_home_path, :class => "sammy" %></strong>
 			<div class="nav-holder">
 				
 				
 				<ul id="nav">
         <% ['product','company','contact','media'].each do |link| %>
-          <% url = (link=="contact") ? page_contact_path : "#" %>
+          <%
+            url = "#"
+            url = page_contact_path if (link=="contact")
+            url = products_path if (link=="product")
+          %>
           <li class="<%= link %>">
           <% if @parent_nav == link %>
-            <%= link_to link.upcase, url, :class => "active", :rel => link %>
+            <%= link_to link.upcase, url, :class => "active", :rel => link, :class => "sammy" %>
           <% else %>
-            <%= link_to link.upcase, url, :rel => link %>
+            <%= link_to link.upcase, url, :rel => link, :class => "sammy" %>
           <% end %>
           </li>
         <% end %>
@@ -29,28 +33,30 @@
 				
 				
 				<div class="menu-holder">
+          <!--
 					<ul class="menu product">
 						<li><a href="#">HID</a></li>
 						<li><a href="#">LED</a></li>
 						<li><a href="#">Halogen</a></li>
 						<li><a href="#">Parts</a></li>
 					</ul>
-					
+					-->
 					<ul class="menu company">
-						<li class="about"><%= link_to "ABOUT", page_about_path %></li>
-						<li class="conditions"><%= link_to "CONDITIONS", page_conditions_path %></li>
-						<li class="dealer_inquiry"><%= link_to "DEALER INQUIRY", page_dealer_inquiry_path %></li>
+						<li class="about"><%= link_to "ABOUT", page_about_path, :class => "sammy" %></li>
+						<li class="conditions"><%= link_to "CONDITIONS", page_conditions_path, :class => "sammy" %></li>
+						<li class="dealer_inquiry"><%= link_to "DEALER INQUIRY", page_dealer_inquiry_path, :class => "sammy" %></li>
 					</ul>
 
 					<ul class="menu media">
-						<li><%= link_to "NEWS", page_news_path %></li>
+						<li><%= link_to "NEWS", page_news_path, :class => "sammy" %></li>
 						<li><%= link_to "GALLERY", "#" %></li>
-						<li><%= link_to "SUPPORT", page_support_path %></li>
+						<li><%= link_to "SUPPORT", page_support_path, :class => "sammy" %></li>
 						<li><%= link_to "SUBMIT YOUR VEHICLE", "#" %></li>
 					</ul>	
 														
 				</div>
 			</div>
+			<!-- 
 			<form action="#" class="search-form">
 				<fieldset>
 					<div class="text-holder">
@@ -59,6 +65,7 @@
 					<input type="image" src="/images/btn-search.gif" alt="search" value="search" class="submit" />
 				</fieldset>
 			</form>
+			-->
 		</div>
 		<div id="content">
 		  <div id="sammify">
@@ -91,7 +98,7 @@
 			<ul class="nav">
 				<li><%= link_to "Login", "#" %></li>
 				<li><%= link_to "Sign Up", "#" %></li>
-				<li><%= link_to "FAQS", page_faq_path %></li>
+				<li><%= link_to "FAQS", page_faq_path, :class => "sammy" %></li>
 			</ul>
 			<ul class="social">
 				<li><a class="facebook" href="#">facebook</a></li>
@@ -102,7 +109,7 @@
 			<div class="box">
 				<ul>
 					<li><%= link_to "Site Map", "#" %></li>
-					<li><%= link_to "Privacy / Terms of use", page_privacy_and_terms_path %></li>
+					<li><%= link_to "Privacy / Terms of use", page_privacy_and_terms_path, :class => "sammy" %></li>
 				</ul>
 				<p>Copyright &copy; 2010 JD Lightings Inc.  All rights reserved</p>
 			</div>
@@ -114,7 +121,7 @@
 	  var parentNav = '<%= @parent_nav %>';
 	  
     var app = $.sammy(function() {
-      this.debug = true;
+      //this.debug = true;
       
       this.before(function(){
         var loading = '<div class="loading"></div>';
@@ -159,6 +166,16 @@
       })
       
       
+      /* product stuff */
+      
+      this.get('#/products', function() {
+        $('#sammify').load(site+'/products');
+        parentNav = "product";
+      })
+      
+      
+      
+            
       this.after(function(){
         /* add UI navigation highlighting */
         if (parentNav !== ''){
@@ -166,20 +183,19 @@
           $("#nav").find("li."+parentNav+" a").hover();
         }
       })
-          
-          
-          
+ 
       this.notFound = function(){
-        return false;
+
       }
     })
     
     $(function() {
+      // run sammy
       app.run();
       
       
       // sammify real links
-      $("body").find("a").click(function(){
+      $("a.sammy").click(function(){
         // no sammy
         if($(this).attr('href') === "#") return false;
         
@@ -203,6 +219,7 @@
         }
       })
       
+      // top navigation sub-menus
       $("#nav").find("a").hover(function(){
         $("div.menu-holder").find("ul").hide()
         var list = $(this).attr('rel');
@@ -211,7 +228,22 @@
         $(this).addClass("active")
       })
       $("#nav").find("li."+parentNav+" a").hover();
-    })
+      
+
+      // product category accordion
+      $('ul.accordion a.opener').live("click", function(){
+        var $slide = $(this).next(".slide");
+
+        $(".slide").not($slide).slideUp();
+        if ($slide.is(":hidden")){
+          $slide.slideDown();
+        } else {
+          $slide.slideUp();
+        }
+        return false;
+      })
+
+    })      
     
 	</script>	
 </body>

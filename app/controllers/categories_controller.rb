@@ -1,13 +1,12 @@
 class CategoriesController < ApplicationController
-  # GET /categories
-  # GET /categories.xml
-  def index
-    @categories = Category.all
+  
+  layout proc { |c| c.request.xhr? ? false : "application" }
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @categories }
-    end
+
+  def index
+    @parent_nav = "product"
+    #@categories = Category.all
+
   end
 
   # GET /categories/1

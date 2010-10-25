@@ -1,7 +1,10 @@
 Jdlightings::Application.routes.draw do
 
   root :to => redirect("/auto")
-  
+
+  # admin
+  match 'admin' => "admin#index"
+    
   # two website sections with route_helpers
   constraints(:site => /(auto)|(hydro)/) do
     scope ":site", :controller => "pages", :name_prefix => "page" do
@@ -16,8 +19,17 @@ Jdlightings::Application.routes.draw do
       get 'site_map'          
       get 'privacy_and_terms'
     end
+    
+    scope ":site/products" do
+      match "()"                  => "categories#index",  :as => "products"
+      match ":category"           => "categories#show",   :as => "category"
+      match ":category/:product"  => "products#show",     :as => "product"
+    end    
   end  
 
+
+  
+=begin
   # routes for product engine
   resources :categories
   resources :products do
@@ -29,9 +41,8 @@ Jdlightings::Application.routes.draw do
     end    
     resources :items
   end
-    
-  # admin
-  match 'admin' => "admin#index"
+=end    
+
       
   #match ':site' => 'pages#about', :constraints => { :site => /[A-Z]\d{5}/ }
   

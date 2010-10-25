@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
 
+  layout false
   def index
     @categories = Category.all
     
