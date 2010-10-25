@@ -11,8 +11,8 @@ class PagesController < ApplicationController
   def about
     @parent_nav = "company"
 
-    @categories = Category.all
-    @products = Product.all
+    #@categories = Category.all
+    #@products = Product.all
     
   end
 
