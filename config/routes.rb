@@ -1,5 +1,7 @@
 Jdlightings::Application.routes.draw do
 
+  root :to => redirect("/auto")
+  
   # two website sections with route_helpers
   constraints(:site => /(auto)|(hydro)/) do
     scope ":site", :controller => "pages", :name_prefix => "page" do
