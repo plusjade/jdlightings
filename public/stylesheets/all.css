@@ -522,9 +522,14 @@ div.menu-holder ul {
 #content .container, #sammify {
   height:495px; overflow:hidden;
 }
+
+#product-layout{
+  height:500px;
+  background:transparent url('/images/audi-bg.jpg') no-repeat 290px 0px;
+}
 #company-layout{
   height:500px;
-  background: url('/images/about.jpg') no-repeat top right;
+  background: url('/images/about.jpg') no-repeat 102% 0%;
 }
 #contact-layout{
   height:500px;
@@ -532,8 +537,9 @@ div.menu-holder ul {
 }
 #media-layout{
   height:500px;
-  background:#000 url('/images/media.jpg') no-repeat top -80px;
+  background:#000 url('/images/media.jpg') no-repeat -80px 0px;
 }
+
 #aside-background{
   width:290px;
   height:500px;
