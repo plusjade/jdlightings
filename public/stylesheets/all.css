@@ -103,7 +103,7 @@ p {line-height:1.5em;} /*add */
 	font:14px/22px BankGothicMedium, Arial, Helvetica, sans-serif;
 }
 #nav a{color:#c1c1c1;}
-#nav a.active, #nav a:hover {text-decoration:underline;color:#eee;} /* add */
+#nav a.active, #nav a:hover {text-decoration:underline;color:#ccc;} /* add */
 .menu-holder{
 	background:url(../images/bg-menu.gif) repeat-x;
 	float:left;
@@ -473,6 +473,49 @@ p {line-height:1.5em;} /*add */
 =============================================
 =============================================
 */
+
+h1,h2,h3,h4,h5,h6{
+  margin-bottom:10px;
+  color:#ccc;
+  font-weight:normal;
+}
+h1{ font-size:18px;}
+h2{ font-size:14px;}
+h3{ font-size:12px;}
+h4{ font-size:12px;}
+h5{ font-size:10px;}
+.pad{
+  padding:10px;
+}
+.pad a {color:#eee;}
+p{
+  margin-bottom:10px;
+  color:#eee;
+}
+ul.pdf-list{
+  margin-bottom:20px;
+}
+ul.pdf-list li {
+  display:block;
+  margin-bottom:10px;
+  padding-bottom:4px;
+  border-bottom:2px solid #999;
+  color:#bbb;
+}
+ul.pdf-list li a {
+  float:right;
+  color:#bbb;
+}
+
+ol{
+  color:#eee;
+  list-style-type:decimal;
+  margin: 0 0 10px 20px;
+}
+ol li {
+  margin-bottom:5px;
+}
+
 div.menu-holder ul {
   display:none;
 }
@@ -508,4 +551,15 @@ div.menu-holder ul {
   margin:auto;
   margin-top:100px;
   background: url('/images/ajax-loader.gif') no-repeat center center;	    
+}
+
+.contact-wrapper h4 {
+  margin-bottom:5px;
+}
+.contact-wrapper h3 {
+}
+
+.contact-wrapper a {
+  display:block;
+  margin-bottom:10px;
 }
