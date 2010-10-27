@@ -1,5 +1,9 @@
 <% content_for :background do %>
-  <img src="/images/img01.jpg" alt="" width="980" height="495" />
+  <% if params[:site] == "auto" %>
+    <img src="/images/img01.jpg" alt="" width="980" height="495" />
+  <% else %>
+    <img src="/images/hydro/home.jpg" alt="" width="980" height="495" />
+  <% end %>
 <% end %>
 <%= render :template => "pages/template" %>
 
