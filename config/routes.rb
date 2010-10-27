@@ -1,6 +1,6 @@
 Jdlightings::Application.routes.draw do
 
-  root :to => redirect("/auto")
+  #root :to => redirect("/auto")
 
   # admin
   match 'admin' => "admin#index"
