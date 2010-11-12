@@ -28,8 +28,6 @@ Jdlightings::Application.routes.draw do
   end  
 
 
-  
-=begin
   # routes for product engine
   resources :categories
   resources :products do
@@ -41,7 +39,6 @@ Jdlightings::Application.routes.draw do
     end    
     resources :items
   end
-=end    
 
       
   #match ':site' => 'pages#about', :constraints => { :site => /[A-Z]\d{5}/ }

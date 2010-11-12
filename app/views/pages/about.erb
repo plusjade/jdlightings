@@ -7,6 +7,7 @@
 <% content_for :aside do %>
 <div class="pad">
   <h2>ABOUT</h2>
+  <% if params[:site] == "auto" %>
   <p>
     JD-LIGHTINGS, Inc. is a premiere lighting company that has been in the auto after-market industry for over 6 years. 
      Since 2004, we have provided  high quality LED and HID lighting systems for both our wholesaler and retail networks.    
@@ -15,7 +16,17 @@
   <p>
      We provide our own brand of LED Lighting in competitive prices with a vast range of products.  
      Preview our product section to see our high performance in lighting.
-   </p>
+  </p>
+  <% else %>
+  <p>
+    JD-LIGHTINGS, Inc. is a premiere lighting company that provides excellent horticulture lighting systems. 
+    Our high performing Electronic Ballasts uses the latest technology to offer our customers reliable and quality products.
+  </p>
+  <p>
+    We are committed to our wholesaler and retail networks and pride ourselves with excellent service at competitive prices. 
+    Preview our product section to see our high performance products in action.
+  </p>
+  <% end %>   
 </div>
 <% end %>
 <%= render :template => "pages/template" %>

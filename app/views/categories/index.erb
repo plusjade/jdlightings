@@ -5,9 +5,15 @@
 <% end %>
 
 <% content_for :aside do %>
+
 <ul class="accordion">
+  <% @categories.each do |cat| %>
+    <li>
+    <%= link_to cat.name, cat.name, :class => "opener" %>
+    </li>
+  <% end %>  
+  <!-- 
 	<li>
-		<a href="/product/HID" class="opener">HID</a>
 		<div class="slide">
 			<div class="box">
 				<h3>Premium Ballast</h3>
@@ -19,53 +25,11 @@
 			</div>
 		</div>
 	</li>
-	<li>
-		<a href="/product/LED" class="opener">LED</a>
-		<div class="slide">
-			<div class="box">
-				<h3>European Error-Free</h3>
-				<ul>
-					<li class="active"><a href="#">Canbus 41mm</a></li>
-					<li><a href="#">Canbus 37mm</a></li>
-					<li><a href="#">Canbus 8 SMD</a></li>
-					<li><a href="#">Canbus 3 SMD</a></li>
-				</ul>
-			</div>
-			<div class="box">
-				<h3>SMD(HALOGEN)</h3>
-				<ul>
-					<li class="active"><a href="#">T10 4 SMD</a></li>
-					<li><a href="#">T10 5 SMD</a></li>
-					<li><a href="#">T10 8 SMD</a></li>
-					<li><a href="#">12 SMD Panel</a></li>
-					<li><a href="#">41mm 16 SMD</a></li>
-					<li><a href="#">31mm 12 SMD</a></li>
-				</ul>
-			</div>
-			<div class="box">
-				<h3>High Power</h3>
-				<ul>
-					<li class="active"><a href="#">5w</a></li>
-				</ul>
-			</div>
-			<div class="box">
-				<h3>Daytime Running Light</h3>
-				<ul>
-					<li class="active"><a href="#">20" Audi Strips</a></li>
-				</ul>
-			</div>
-			<div class="box">
-				<h3>Refractor</h3>
-				<ul>
-					<li class="active"><a href="#">T15 9 LED</a></li>
-				</ul>
-			</div>
-		</div>
-	</li>
+	-->
+	
 	<li><a href="#">PARTS ACCESSORIES</a></li>
 </ul>
 
-<a href="#" class="light">LIGHT COMPARISON</a>
 <% end %>
 
 

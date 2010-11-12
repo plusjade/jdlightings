@@ -19,7 +19,7 @@
           <%
             url = "#"
             url = page_contact_path if (link=="contact")
-            url = products_path if (link=="product")
+            url = "/" + params[:site] + "/products" if (link=="product")
           %>
           <li class="<%= link %>">
           <% if @parent_nav == link %>
@@ -133,7 +133,7 @@
         parentNav = 'hi';
       })
       this.get('#/about', function() {
-        $('#sammify').load('/auto/about');
+        $('#sammify').load(site+'/about');
         parentNav = "company";
       })
       this.get('#/conditions', function() {

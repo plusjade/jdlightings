@@ -1,11 +1,12 @@
 class CategoriesController < ApplicationController
   
   layout proc { |c| c.request.xhr? ? false : "application" }
-
+  layout false
 
   def index
     @parent_nav = "product"
-    #@categories = Category.all
+    site = params[:site]
+    @categories = Category.where(:site => site)
 
   end
 
